@@ -1,0 +1,17 @@
+<div class="Livros-container">
+    @for ( livro of Livros; track Livro.id){
+        <mat-card class="Livro-card">
+            <img mat-card-image [src]="Livro.capa" alt="capa do livro">
+        </mat-card-header>
+        </mat-card-title>{{ Livro.titulo}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-component>
+            <p class="preco">R$ {{Livro.preco}}</p>
+            <p class="categoria">{{ LIvro.categoria}}</p>
+        </mat-card-component>
+    </mat-card-actions>
+    <button mat-button  color="primary">comprar</button>
+    </mat-card-actions>
+    </mat-card>
+    }
+    </div>
