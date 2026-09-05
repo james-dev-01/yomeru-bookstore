@@ -1,0 +1,15 @@
+<header class="navbar">
+    <div class="logo">
+        <a routerLink="/">yomeru</a>
+    </div>
+    <nav class="nav-links">
+        <a routerLink="/">Catálogo</a>
+        <a routerLink="/carrinho" class="btn-carrinho">
+            Carrinho
+            @if (quantidadedeItens() > 0)
+            {
+                <span class="badge">{{ quantidadedeItens() }}</span>
+            }
+        </a>
+    </nav>
+</header>

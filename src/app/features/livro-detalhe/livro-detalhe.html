@@ -1,0 +1,31 @@
+@if (carregando()) {
+  <p class="mensagem-status">Carregando detalhes do livro...</p>
+}
+
+@if (erro()) {
+  <p class="mensagem-status erro">{{ erro() }}</p>
+}
+
+@if (!carregando() && !erro() && livro(); as l) {
+  <div class="livro-detalhe-container">
+    <img [src]="l.capa" [alt]="l.titulo" class="capa-livro-detalhe" />
+
+    <div class="info-livro">
+      <h1>{{ l.titulo }}</h1>
+      <p class="autor">por {{ l.autor }}</p>
+      <p class="categoria">{{ l.categoria }}</p>
+
+      <p class="sinopse">{{ l.sinopse }}</p>
+
+      <p class="preco">R$ {{ l.preco }}</p>
+
+      <button (click)="adicionarNoCarrinho()">
+        Adicionar ao carrinho
+      </button>
+
+      @if (adicionado()) {
+        <p class="confirmacao">{{ l.titulo }} foi adicionado ao carrinho!</p>
+      }
+    </div>
+  </div>
+}

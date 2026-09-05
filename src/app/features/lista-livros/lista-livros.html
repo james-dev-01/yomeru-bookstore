@@ -1,17 +1,43 @@
-<div class="Livros-container">
-    @for ( livro of Livros; track Livro.id){
-        <mat-card class="Livro-card">
-            <img mat-card-image [src]="Livro.capa" alt="capa do livro">
-        </mat-card-header>
-        </mat-card-title>{{ Livro.titulo}}</mat-card-title>
-        </mat-card-header>
-        <mat-card-component>
-            <p class="preco">R$ {{Livro.preco}}</p>
-            <p class="categoria">{{ LIvro.categoria}}</p>
-        </mat-card-component>
-    </mat-card-actions>
-    <button mat-button  color="primary">comprar</button>
-    </mat-card-actions>
-    </mat-card>
+<div class="barra-busca">
+  <input
+    type="text"
+    placeholder="Buscar por titulo ou assunto..."
+    [value]="termoBusca()"
+    (input)="termoBusca.set($any($event.target).value)"
+    (keyup.enter)="buscar()"
+  />
+  <button (click)="buscar()">Buscar</button>
+</div>
+
+<div class="filtros-categoria">
+  <button (click)="filtrarPorCategoria('fantasy')">Fantasia</button>
+  <button (click)="filtrarPorCategoria('romance')">Romance</button>
+  <button (click)="filtrarPorCategoria('fiction')">Ficcao</button>
+  <button (click)="filtrarPorCategoria('mystery')">Misterio</button>
+</div>
+
+@if (livroService.carregando()) {
+  <p class="mensagem-status">Carregando livros...</p>
+}
+
+@if (livroService.erro()) {
+  <p class="mensagem-status erro">{{ livroService.erro() }}</p>
+}
+
+@if (!livroService.carregando() && !livroService.erro()) {
+  <div class="lista-livros-container">
+    @for (livro of livroService.livros(); track livro.id) {
+      <div class="livro-card">
+        <img [src]="livro.capa" [alt]="livro.titulo" />
+        <h3>{{ livro.titulo }}</h3>
+        <p>{{ livro.autor }}</p>
+        <p class="preco">R$ {{ livro.preco }}</p>
+        <button (click)="adicionarNoCarrinho(livro)">Adicionar ao carrinho</button>
+      </div>
     }
-    </div>
+
+    @if (livroService.livros().length === 0) {
+      <p class="mensagem-status">Nenhum livro encontrado.</p>
+    }
+  </div>
+}

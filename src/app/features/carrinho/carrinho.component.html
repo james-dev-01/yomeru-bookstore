@@ -1,0 +1,37 @@
+<div class="carrinho-container">
+  <h2>Seu Carrinho</h2>
+
+  @if (itens().length === 0) {
+    <p>O carrinho está vazio.</p>
+  } @else {
+    <div class="lista-itens">
+      @for (item of itens(); track item.id) {
+        <mat-card class="carrinho-item">
+          <img mat-card-image [src]="item.capa" alt="capa do livro">
+          <mat-card-content>
+            <h3>{{ item.titulo }}</h3>
+            <p>R$ {{ item.preco }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button color="warn" (click)="removerItem(item.id)">Remover</button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+
+    <div class="resumo">
+      <p>Subtotal: R$ {{ subtotal() | number:'1.2-2' }}</p>
+      
+      @if (frete() === 0) {
+        <p class="destaque-verde">Frete: GRÁTIS</p>
+      } @else {
+        <p>Frete: R$ {{ frete() | number:'1.2-2' }}</p>
+        <p class="aviso">Faltam R$ {{ valorFalta() | number:'1.2-2' }} para você ganhar frete grátis!</p>
+      }
+      
+      <h3>Total: R$ {{ total() | number:'1.2-2' }}</h3>
+      
+      <button mat-raised-button color="primary" (click)="finalizar()">Finalizar Compra</button>
+    </div>
+  }
+</div>
