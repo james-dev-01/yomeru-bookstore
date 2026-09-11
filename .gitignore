@@ -45,3 +45,11 @@ Thumbs.db
 
 # Environment files (API keys)
 /src/environments/environment.ts
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

@@ -1,0 +1,88 @@
+.sobre-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: var(--texto-principal, #F8FAFC);
+}
+
+h2 {
+  font-size: 2.5rem;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.destaque {
+  color: var(--cor-destaque, #00E676);
+}
+
+.card-sobre {
+  background-color: var(--bg-secundario, #161D2B);
+  border: 1px solid var(--cor-primaria, #6366F1);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.card-sobre h3 {
+  color: var(--cor-primaria, #6366F1);
+  font-size: 1.4rem;
+  margin-top: 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+  padding-bottom: 8px;
+}
+
+.card-sobre p {
+  line-height: 1.6;
+  color: var(--texto-secundario, #94A3B8);
+  font-size: 1.05rem;
+}
+
+.equipe ul {
+  list-style: none;
+  padding: 0;
+}
+
+.equipe li {
+  margin-bottom: 16px;
+  padding: 12px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-left: 4px solid var(--cor-destaque, #00E676);
+  border-radius: 4px;
+}
+
+.equipe li strong {
+  display: block;
+  font-size: 1.1rem;
+  color: var(--texto-principal, #F8FAFC);
+}
+
+.equipe li span {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--texto-secundario, #94A3B8);
+  margin-top: 4px;
+}
+
+.links-contato {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.links-contato a {
+  background-color: transparent;
+  border: 1px solid var(--cor-destaque, #00E676);
+  color: var(--cor-destaque, #00E676);
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.links-contato a:hover {
+  background-color: var(--cor-destaque, #00E676);
+  color: var(--bg-principal, #0B0E14);
+}
