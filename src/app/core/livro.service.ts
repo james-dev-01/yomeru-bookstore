@@ -18,11 +18,10 @@ export class LivroService {
   livros = signal<Livro[]>([]);
   carregando = signal<boolean>(false);
   erro = signal<string | null>(null);
-  
-  // NOVO SIGNAL: Guarda o título da seção atual
+
   tituloSecao = signal<string>('A Escolha do Editor'); 
 
-  // --- 1. A SUA VITRINE PERSONALIZADA ---
+
   buscarVitrinePrincipal() {
     this.carregando.set(true);
     this.erro.set(null);
@@ -79,7 +78,7 @@ export class LivroService {
     });
   }
 
-  // --- 2. BEST SELLERS NYT ---
+ 
   buscarBestSellers() {
     this.carregando.set(true);
     this.erro.set(null);
@@ -124,12 +123,12 @@ export class LivroService {
     });
   }
 
-  // --- 3. BUSCA NORMAL NA API ---
+
   buscarLivrosDaApi(termoDeBusca: string = "subject:fantasy romance") {
     this.carregando.set(true);
     this.erro.set(null);
 
-    // LÓGICA DO TÍTULO DINÂMICO PARA BUSCAS E CATEGORIAS
+  
     if (termoDeBusca.startsWith('subject:')) {
       const categoria = termoDeBusca.replace('subject:', '');
       const mapaCategorias: { [key: string]: string } = {
