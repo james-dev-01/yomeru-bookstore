@@ -10,7 +10,7 @@
 </div>
 
 <div class="filtros-categoria">
-  <!-- Botão novo chamando a API do NYT -->
+  
   <button (click)="carregarBestSellers()" style="border-color: #00E676; color: #00E676;">🏆 Best Sellers NYT</button>
   
   <button (click)="filtrarPorCategoria('fantasy')">Fantasia</button>
@@ -29,27 +29,25 @@
 
 @if (!livroService.carregando() && !livroService.erro()) {
   
-  <!-- AQUI ESTÁ O TÍTULO DINÂMICO! -->
-  <h2 style="color: var(--texto-principal); margin: 24px 0 16px; font-weight: 600;">
+  <h2 class="titulo-secao">
     {{ livroService.tituloSecao() }}
   </h2>
 
   <div class="lista-livros-container">
     @for (livro of livroService.livros(); track livro.id) {
-      <div class="livro-card">
-        <!-- O routerLink já está pronto aqui para quando você for fazer a página de detalhes -->
+      <div class="livro-card card-livro">
+       
         <img [src]="livro.capa" [alt]="livro.titulo" [routerLink]="['/livro', livro.id]" style="cursor: pointer;" />
         
         <h3>{{ livro.titulo }}</h3>
         <p class="autor">{{ livro.autor }}</p>
         
-        <!-- Sinopse adicionada aqui! Cortando em 100 caracteres -->
-        <p class="sinopse-livro" style="font-size: 0.85rem; color: var(--texto-secundario); margin: 8px 0;">
+        <p class="sinopse-livro">
           {{ livro.sinopse | slice:0:100 }}...
         </p>
 
-        <p class="preco">R$ {{ livro.preco }}</p>
-        <button (click)="adicionarNoCarrinho(livro)">Adicionar ao carrinho</button>
+        <p class="preco preco-destaque">R$ {{ livro.preco }}</p>
+        <button class="btn-comprar" (click)="adicionarNoCarrinho(livro)">Adicionar ao carrinho</button>
       </div>
     }
 

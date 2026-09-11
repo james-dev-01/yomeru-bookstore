@@ -1,1 +1,94 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  /* Paleta 60-30-10 */
+  --bg-principal: #0B0E14;       /* fundo principal, 60% */
+  --bg-cards: #161D2B;           /* fundo de cards e menus, 30% */
+  --borda-card: #6366F1;         /* azul vivo, borda no hover */
+  --cor-destaque: #00E676;       /* verde neon, 10% - botoes e precos */
+  --cor-destaque-hover: #00c862; /* verde mais escuro no hover */
+  --texto-principal: #F8FAFC;
+  --texto-secundario: #94A3B8;
+
+  /* Tipografia */
+  --fonte-titulos: 'Poppins', sans-serif;
+  --fonte-textos: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color-scheme: dark;
+  background-color: var(--bg-principal);
+  color: var(--texto-principal);
+  font-family: var(--fonte-textos);
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--fonte-titulos);
+  color: var(--texto-principal);
+  margin: 0 0 12px;
+}
+
+a {
+  font-family: var(--fonte-textos);
+}
+
+input, button {
+  font-family: var(--fonte-textos);
+}
+
+
+
+/* Card padrão para itens de livro (catálogo, detalhe, carrinho) */
+.card-livro {
+  background-color: var(--bg-cards);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 16px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.card-livro:hover {
+  border-color: var(--borda-card);
+  transform: translateY(-4px);
+}
+
+
+.btn-comprar {
+  background-color: var(--cor-destaque);
+  color: var(--bg-principal);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-family: var(--fonte-textos);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-comprar:hover {
+  background-color: var(--cor-destaque-hover);
+}
+
+.btn-comprar:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+
+.preco-destaque {
+  color: var(--cor-destaque);
+  font-family: var(--fonte-titulos);
+  font-weight: 700;
+  font-size: 1.15rem;
+}

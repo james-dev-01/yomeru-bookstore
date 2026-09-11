@@ -17,9 +17,9 @@
 
       <p class="sinopse">{{ l.sinopse }}</p>
 
-      <p class="preco">R$ {{ l.preco }}</p>
+      <p class="preco preco-destaque">R$ {{ l.preco }}</p>
 
-      <button (click)="adicionarNoCarrinho()">
+      <button class="btn-comprar" (click)="adicionarNoCarrinho()">
         Adicionar ao carrinho
       </button>
 

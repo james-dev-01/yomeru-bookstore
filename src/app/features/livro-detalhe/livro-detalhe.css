@@ -1,16 +1,90 @@
-.livro-card img,
-.capa-livro {
-  width: 100%;
-  max-width: 200px;
-  height: 280px;
-  object-fit: cover;
-  border-radius: 8px;
-  display: block;
+.livro-detalhe-container {
+  display: flex;
+  gap: 40px;
+  padding: 40px 24px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-.lista-livros-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 24px;
-  padding: 24px;
+.capa-livro-detalhe {
+  width: 280px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.info-livro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-livro h1 {
+  font-size: 2rem;
+  margin-bottom: 0;
+}
+
+.info-livro .autor {
+  color: var(--texto-secundario);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.info-livro .categoria {
+  display: inline-block;
+  background-color: var(--bg-cards);
+  color: var(--borda-card);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 0.85rem;
+  width: fit-content;
+  margin: 4px 0 12px;
+}
+
+.info-livro .sinopse {
+  color: var(--texto-secundario);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.info-livro .preco {
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.info-livro button {
+  align-self: flex-start;
+}
+
+.confirmacao {
+  color: var(--cor-destaque);
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.mensagem-status {
+  padding: 40px 24px;
+  color: var(--texto-secundario);
+  text-align: center;
+}
+
+.mensagem-status.erro {
+  color: #FF6B6B;
+}
+
+@media (max-width: 640px) {
+  .livro-detalhe-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .info-livro .categoria {
+    align-self: center;
+  }
+
+  .info-livro button {
+    align-self: center;
+  }
 }
