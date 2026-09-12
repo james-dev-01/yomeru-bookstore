@@ -5,7 +5,7 @@
     <p>O carrinho está vazio.</p>
   } @else {
     <div class="lista-itens">
-      @for (item of itens(); track item.id) {
+      @for (item of itens(); track $index) {
         <mat-card class="carrinho-item">
           <img mat-card-image [src]="item.capa" alt="capa do livro">
           <mat-card-content>
@@ -13,7 +13,7 @@
             <p>R$ {{ item.preco }}</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button color="warn" (click)="removerItem(item.id)">Remover</button>
+            <button mat-button color="warn" (click)="removerItem($index)">Remover</button>
           </mat-card-actions>
         </mat-card>
       }

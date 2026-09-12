@@ -18,7 +18,7 @@ export class ListaLivrosComponent implements OnInit {
   termoBusca = signal<string>('');
 
   ngOnInit() {
-    // Carrega a SUA vitrine assim que a tela abre!
+    
     this.livroService.buscarVitrinePrincipal();
   }
 
@@ -27,12 +27,11 @@ export class ListaLivrosComponent implements OnInit {
     if (termo) {
       this.livroService.buscarLivrosDaApi(termo);
     } else {
-      // Se a pessoa limpar a busca, volta pra sua vitrine
+   
       this.livroService.buscarVitrinePrincipal();
     }
   }
 
-  // Nova função para o botão do New York Times
   carregarBestSellers() {
     this.livroService.buscarBestSellers();
   }

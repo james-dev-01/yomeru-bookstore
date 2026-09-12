@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CarrinhoService } from '../../core/services/carrinho.service';
@@ -14,6 +15,7 @@ import { CarrinhoService } from '../../core/services/carrinho.service';
 })
 export class CarrinhoComponent {
   private carrinhoService = inject(CarrinhoService);
+  private router = inject(Router);
 
   itens = this.carrinhoService.itensCarrinho;
   subtotal = this.carrinhoService.subtotal;
@@ -21,12 +23,12 @@ export class CarrinhoComponent {
   total = this.carrinhoService.total;
   valorFalta = this.carrinhoService.valorParaFreteGratis;
 
-  removerItem(id: string | number) {
-    this.carrinhoService.removerDoCarrinho(id);
+  removerItem(index: number) {
+    this.carrinhoService.removerDoCarrinho(index);
   }
 
   finalizar() {
-    alert('Compra finalizada!');
-    this.carrinhoService.limparCarrinho();
+    this.carrinhoService.finalizarCompra();
+    this.router.navigate(['/pedido-confirmado']);
   }
 }

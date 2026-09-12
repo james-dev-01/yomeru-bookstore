@@ -1,0 +1,40 @@
+<div class="pedido-container">
+  @if (pedido(); as p) {
+    <div class="check-icone">✓</div>
+
+    <h2>Obrigado pela sua compra!</h2>
+    <p class="subtitulo">Seu pedido foi realizado com sucesso.</p>
+
+    <div class="numero-pedido">
+      Pedido <strong>{{ p.numero }}</strong>
+    </div>
+
+    <div class="lista-itens">
+      @for (item of p.itens; track item.id) {
+        <div class="item-pedido">
+          <img [src]="item.capa" alt="capa do livro">
+          <div class="item-info">
+            <h4>{{ item.titulo }}</h4>
+            <p>R$ {{ item.preco }}</p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="resumo">
+      <p>Subtotal: R$ {{ p.subtotal | number:'1.2-2' }}</p>
+      @if (p.frete === 0) {
+        <p class="destaque-verde">Frete: GRÁTIS</p>
+      } @else {
+        <p>Frete: R$ {{ p.frete | number:'1.2-2' }}</p>
+      }
+
+      <h3>Total pago: R$ {{ p.total | number:'1.2-2' }}</h3>
+    </div>
+
+    <a routerLink="/" class="btn-comprar btn-voltar">Voltar ao catálogo</a>
+  } @else {
+    <p>Nenhum pedido recente encontrado.</p>
+    <a routerLink="/" class="btn-comprar btn-voltar">Voltar ao catálogo</a>
+  }
+</div>
