@@ -1,0 +1,108 @@
+<div class="login-container">
+  <div class="login-card">
+    <h1 class="login-titulo">Bem-vindo à Yomeru</h1>
+    <p class="login-subtitulo">Entre para continuar sua leitura</p>
+
+    <form [formGroup]="formLogin" (ngSubmit)="entrarComEmailSenha()" class="login-form">
+      <div class="campo-grupo">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="seuemail@exemplo.com"
+          class="campo-input"
+        />
+        @if (email?.invalid && email?.touched) {
+          <span class="campo-erro">Digite um email válido.</span>
+        }
+      </div>
+
+      <div class="campo-grupo">
+        <label for="senha">Senha</label>
+        <div class="campo-senha-wrapper">
+          <input
+            id="senha"
+            [type]="senhaVisivel() ? 'text' : 'password'"
+            formControlName="senha"
+            placeholder="••••••••"
+            class="campo-input"
+          />
+          <button
+            type="button"
+            class="btn-olho"
+            (click)="alternarVisibilidadeSenha()"
+            [attr.aria-label]="senhaVisivel() ? 'Ocultar senha' : 'Mostrar senha'"
+            [attr.aria-pressed]="senhaVisivel()"
+          >
+            @if (senhaVisivel()) {
+              <!-- Ícone de olho aberto -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            } @else {
+              <!-- Ícone de olho fechado -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a18.5 18.5 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            }
+          </button>
+        </div>
+        @if (senha?.invalid && senha?.touched) {
+          <span class="campo-erro">
+            Mínimo 6 caracteres, 1 letra maiúscula, 1 número e 1 caractere especial.
+          </span>
+        }
+      </div>
+
+      <a class="link-esqueceu" (click)="esqueceuSenha()">Esqueceu a senha?</a>
+
+      <button
+        type="submit"
+        class="btn-login btn-email"
+        [disabled]="carregando"
+      >
+        @if (provedorCarregando === 'email') {
+          Entrando...
+        } @else {
+          Entrar
+        }
+      </button>
+    </form>
+
+    <p class="criar-conta-texto">
+      Não tem uma conta?
+      <a class="link-criar-conta" (click)="criarConta()">Criar conta</a>
+    </p>
+
+    <hr class="login-divisor" />
+
+    <button class="btn-login btn-google" (click)="entrarComGoogle()" [disabled]="carregando">
+      @if (provedorCarregando === 'google') { Entrando... } @else { Entrar com Google }
+    </button>
+
+    <button class="btn-login btn-facebook" (click)="entrarComFacebook()" [disabled]="carregando">
+      @if (provedorCarregando === 'facebook') { Entrando... } @else { Entrar com Facebook }
+    </button>
+
+    <hr class="login-divisor" />
+
+    <button class="btn-login btn-admin" (click)="entrarComoAdmin()" [disabled]="carregando">
+      @if (provedorCarregando === 'admin') { Entrando... } @else { Entrar como Admin (teste) }
+    </button>
+
+    <p class="login-aviso">Login fictício — apenas para fins de demonstração.</p>
+  </div>
+</div>
+
+@if (modalAberto()) {
+  <div class="modal-overlay" (click)="fecharModal()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <h2 class="modal-titulo">Aviso</h2>
+      <p class="modal-texto">{{ mensagemModal() }}</p>
+      <button class="btn-login btn-admin" (click)="fecharModal()">Entendi</button>
+    </div>
+  </div>
+}

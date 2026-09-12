@@ -4,10 +4,7 @@
     </div>
     <nav class="nav-links">
         <a routerLink="/">Catálogo</a>
-        
-        <!-- O link da página Sobre entra aqui, direto e reto! -->
-        <a routerLink="/sobre">Sobre</a> 
-        
+        <a routerLink="/sobre">Sobre</a>
         <a routerLink="/carrinho" class="btn-carrinho">
             Carrinho
             @if (quantidadedeItens() > 0)
@@ -15,5 +12,12 @@
                 <span class="badge">{{ quantidadedeItens() }}</span>
             }
         </a>
+
+        @if (usuarioLogado(); as usuario) {
+            <span class="usuario-nome">Olá, {{ usuario.nome }}</span>
+            <a (click)="sair()" class="btn-sair">Sair</a>
+        } @else {
+            <a routerLink="/login" class="btn-entrar">Entrar</a>
+        }
     </nav>
 </header>

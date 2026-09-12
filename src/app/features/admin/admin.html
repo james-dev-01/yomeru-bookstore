@@ -1,0 +1,62 @@
+<div class="admin-container">
+  <div class="admin-aviso">
+    ⚠️ Dados meramente ilustrativos, gerados para fins de apresentação/demonstração.
+  </div>
+
+  <h1 class="admin-titulo">Painel Administrativo</h1>
+
+  <div class="cards-metricas">
+    <div class="card-metrica">
+      <span class="metrica-label">Faturamento Total</span>
+      <span class="metrica-valor destaque">{{ formatarMoeda(faturamentoTotal()) }}</span>
+    </div>
+    <div class="card-metrica">
+      <span class="metrica-label">Pedidos Realizados</span>
+      <span class="metrica-valor">{{ totalPedidos().toLocaleString('pt-BR') }}</span>
+    </div>
+    <div class="card-metrica">
+      <span class="metrica-label">Usuários Cadastrados</span>
+      <span class="metrica-valor">{{ totalUsuarios().toLocaleString('pt-BR') }}</span>
+    </div>
+    <div class="card-metrica">
+      <span class="metrica-label">Ticket Médio</span>
+      <span class="metrica-valor">{{ formatarMoeda(ticketMedio()) }}</span>
+    </div>
+  </div>
+
+  <div class="rankings-container">
+    <div class="ranking-coluna">
+      <h2 class="ranking-titulo">📈 Mais Vendidos</h2>
+      @for (livro of livrosMaisVendidos(); track livro.titulo) {
+        <div class="livro-item">
+          <img [src]="gerarUrlCapa(livro.titulo, livro.corCapa)" [alt]="livro.titulo" class="livro-capa" />
+          <div class="livro-info">
+            <span class="livro-titulo">{{ livro.titulo }}</span>
+            <span class="livro-autor">{{ livro.autor }}</span>
+          </div>
+          <div class="livro-numeros">
+            <span class="livro-vendas">{{ livro.vendas }} vendas</span>
+            <span class="livro-faturamento">{{ formatarMoeda(livro.faturamento) }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="ranking-coluna">
+      <h2 class="ranking-titulo">📉 Menos Vendidos</h2>
+      @for (livro of livrosMenosVendidos(); track livro.titulo) {
+        <div class="livro-item">
+          <img [src]="gerarUrlCapa(livro.titulo, livro.corCapa)" [alt]="livro.titulo" class="livro-capa" />
+          <div class="livro-info">
+            <span class="livro-titulo">{{ livro.titulo }}</span>
+            <span class="livro-autor">{{ livro.autor }}</span>
+          </div>
+          <div class="livro-numeros">
+            <span class="livro-vendas">{{ livro.vendas }} vendas</span>
+            <span class="livro-faturamento">{{ formatarMoeda(livro.faturamento) }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

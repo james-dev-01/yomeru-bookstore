@@ -49,3 +49,22 @@
   font-weight: 700;
   box-shadow: 0 0 8px var(--cor-destaque);
 }
+.usuario-nome {
+  color: var(--texto-secundario, #94A3B8);
+  font-size: 0.85rem;
+  margin-left: 0.5rem;
+}
+
+.btn-sair {
+  color: #f87171;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-entrar {
+  background-color: var(--cor-destaque, #00E676);
+  color: var(--bg-principal, #0B0E14);
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  font-weight: 600;
+}
