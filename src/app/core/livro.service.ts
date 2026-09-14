@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { map, Observable, switchMap, catchError, of, from, concatMap, delay, toArray } from "rxjs";
 import { Livro } from "../models/livro.model";
 import { environment } from "../../environments/environment";
+import { MEUS_LIVROS_ESCOLHIDOS } from "./vitrine-principal.data";
 
 const SEPARADOR_AUTORES = ", ";
 const TITULO_PADRAO = "Titulo Indisponivel";
@@ -10,8 +11,8 @@ const AUTOR_PADRAO = "Autor desconhecido";
 const CATEGORIA_PADRAO = "Categoria desconhecida";
 const SINOPSE_PADRAO = "Sinopse nao disponivel";
 
-const DURACAO_CACHE_MS = 15 * 60 * 1000; // 15 minutos
-const INTERVALO_ENTRE_CHAMADAS_MS = 150; // espaça as chamadas pra não estourar o limite da API
+const DURACAO_CACHE_MS = 15 * 60 * 1000;
+const INTERVALO_ENTRE_CHAMADAS_MS = 150;
 
 @Injectable({
   providedIn: "root"
@@ -22,8 +23,7 @@ export class LivroService {
   carregando = signal<boolean>(false);
   erro = signal<string | null>(null);
 
-  tituloSecao = signal<string>('A Escolha do Editor'); 
-
+  tituloSecao = signal<string>('A Escolha do Editor');
 
   buscarVitrinePrincipal() {
     this.carregando.set(true);
@@ -38,30 +38,7 @@ export class LivroService {
       return;
     }
 
-    const meusLivrosEscolhidos = [
-      'intitle:"Entendendo Algoritmos"', 
-      'intitle:"Solo Leveling vol 6"',
-      'intitle:"Overgeared vol 1"', 
-      'intitle:"Harry Potter e a Câmara Secreta"', 
-      'intitle:"Vasco da Gama" esporte', 
-      'intitle:"Senhor Dos Aneis" inauthor:"Tolkien"', 
-      'intitle:"Rapido e Devagar" inauthor:"Kahneman"', 
-      'intitle:"Tomb Raider King vol 1"',
-      'intitle:"O Pequeno Principe"', 
-      'intitle:"Komi Can\'t Communicate"',
-      'intitle:"Overlord vol 1"',
-      'intitle:"It Starts With One" "Linkin Park"',
-      'intitle:"Tim" "Avicii"',
-      'intitle:"Evanescence" "Evolution of Modern Gothic Rock"',
-      'intitle:"Jujutsu Kaisen" inauthor:"Gege Akutami"', // AQUI: Trava de autor para bloquear os cadernos falsos!
-      'intitle:"Naruto Gold, Vol. 1"',
-      'intitle:"Dragon Ball Super, Vol. 24"',
-      'intitle:"Bleach Remix" "13"',
-      'intitle:"One Piece, Vol. 79"',
-      'intitle:"Guerras Secretas" "Mundo Belico"'
-    ];
-
-    from(meusLivrosEscolhidos).pipe(
+    from(MEUS_LIVROS_ESCOLHIDOS).pipe(
       concatMap(titulo => {
         const googleUrl = `https://www.googleapis.com/books/v1/volumes?q=${titulo}&maxResults=1&key=${environment.googleBooksApiKey}`;
         return this.http.get<any>(googleUrl).pipe(
@@ -100,7 +77,6 @@ export class LivroService {
     });
   }
 
- 
   buscarBestSellers() {
     this.carregando.set(true);
     this.erro.set(null);
@@ -160,12 +136,10 @@ export class LivroService {
     });
   }
 
-
   buscarLivrosDaApi(termoDeBusca: string = "subject:fantasy romance") {
     this.carregando.set(true);
     this.erro.set(null);
 
-  
     if (termoDeBusca.startsWith('subject:')) {
       const categoria = termoDeBusca.replace('subject:', '');
       const mapaCategorias: { [key: string]: string } = {
@@ -245,14 +219,28 @@ export class LivroService {
     }));
   }
 
+  private gerarHash(id: string): number {
+    let hash = 0;
+    for (let i = 0; i < id.length; i++) {
+      hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
+    }
+    return hash;
+  }
+
   private mapearLivro(item: any): Livro {
     const info = item.volumeInfo;
-    const precoFicticio = (Math.random() * (79.90 - 29.90) + 29.90).toFixed(2);
+    const hash = this.gerarHash(item.id);
+    const precoBase = 29.90 + (hash % 5001) / 100;
+    const emPromocao = hash % 4 === 0;
+    const precoFinal = emPromocao ? precoBase * 0.8 : precoBase;
+
     return {
       id: item.id,
       titulo: info.title || TITULO_PADRAO,
       autor: info.authors ? info.authors.join(SEPARADOR_AUTORES) : AUTOR_PADRAO,
-      preco: precoFicticio,
+      preco: precoFinal.toFixed(2),
+      precoOriginal: emPromocao ? precoBase.toFixed(2) : undefined,
+      emPromocao,
       capa: info.imageLinks?.thumbnail?.replace("http://", "https://") || "url-imagem-placeholder.jpg",
       categoria: info.categories ? info.categories[0] : CATEGORIA_PADRAO,
       sinopse: info.description || SINOPSE_PADRAO

@@ -17,8 +17,7 @@ interface EnderecoViaCep {
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule],
   templateUrl: './carrinho.component.html',
-  
-  styleUrls: ['./carrinho.css'] 
+  styleUrls: ['./carrinho.css']
 })
 export class CarrinhoComponent {
   private carrinhoService = inject(CarrinhoService);
@@ -36,8 +35,8 @@ export class CarrinhoComponent {
   endereco = signal<{ cidade: string; uf: string } | null>(null);
   cepInvalido = signal(false);
 
-  removerItem(id: string) {
-    this.carrinhoService.removerDoCarrinho(id);
+  removerItem(index: number) {
+    this.carrinhoService.removerDoCarrinho(index);
   }
 
   onCepChange(valorDigitado: string) {

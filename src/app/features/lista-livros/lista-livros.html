@@ -52,7 +52,15 @@
           {{ livro.sinopse | slice:0:100 }}...
         </p>
 
-        <p class="preco preco-destaque">R$ {{ livro.preco }}</p>
+        @if (livro.emPromocao) {
+          <span class="badge-promocao">🔥 -20%</span>
+        }
+        <p class="preco preco-destaque">
+          @if (livro.emPromocao) {
+            <span class="preco-riscado">R$ {{ livro.precoOriginal }}</span>
+          }
+          R$ {{ livro.preco }}
+        </p>
         <button class="btn-comprar" (click)="adicionarNoCarrinho(livro)">Adicionar ao carrinho</button>
       </div>
     }

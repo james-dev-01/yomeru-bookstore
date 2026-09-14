@@ -1,0 +1,46 @@
+.nao-encontrado-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 70vh;
+  padding: 2rem;
+  color: var(--texto-principal);
+}
+
+.codigo-erro {
+  font-family: var(--fonte-titulos);
+  font-size: 6rem;
+  font-weight: 700;
+  color: var(--cor-destaque);
+  line-height: 1;
+}
+
+h1 {
+  font-family: var(--fonte-titulos);
+  font-size: 1.75rem;
+  margin: 1rem 0 0.5rem;
+}
+
+p {
+  font-family: var(--fonte-textos);
+  color: var(--texto-secundario);
+  max-width: 420px;
+  margin-bottom: 2rem;
+}
+
+.btn-voltar {
+  background: var(--cor-destaque);
+  color: var(--bg-principal);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-family: var(--fonte-textos);
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.btn-voltar:hover {
+  background: var(--cor-destaque-hover);
+}

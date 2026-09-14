@@ -3,6 +3,8 @@ export interface Livro {
     titulo: string;
     autor: string;
     preco: string;
+    precoOriginal?: string;
+    emPromocao?: boolean;
     capa: string;
     categoria: string;
     sinopse: string;

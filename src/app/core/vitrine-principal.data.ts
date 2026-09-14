@@ -1,0 +1,22 @@
+export const MEUS_LIVROS_ESCOLHIDOS = [
+  'intitle:"Entendendo Algoritmos"',
+  'intitle:"Solo Leveling vol 6"',
+  'intitle:"Overgeared vol 1"',
+  'intitle:"Harry Potter e a Câmara Secreta"',
+  'intitle:"Vasco da Gama" esporte',
+  'intitle:"Senhor Dos Aneis" inauthor:"Tolkien"',
+  'intitle:"Rapido e Devagar" inauthor:"Kahneman"',
+  'intitle:"Tomb Raider King vol 1"',
+  'intitle:"O Pequeno Principe"',
+  'intitle:"Komi Can\'t Communicate"',
+  'intitle:"Overlord vol 1"',
+  'intitle:"It Starts With One" "Linkin Park"',
+  'intitle:"Tim" "Avicii"',
+  'intitle:"Evanescence" "Evolution of Modern Gothic Rock"',
+  'intitle:"Jujutsu Kaisen" inauthor:"Gege Akutami"',
+  'intitle:"Naruto Gold, Vol. 1"',
+  'intitle:"Dragon Ball Super, Vol. 24"',
+  'intitle:"Bleach Remix" "13"',
+  'intitle:"One Piece, Vol. 79"',
+  'intitle:"Guerras Secretas" "Mundo Belico"'
+];

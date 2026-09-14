@@ -1,4 +1,4 @@
-import{ inject, Injectable, computed, signal } from "@angular/core";
+import { inject, Injectable, computed, signal } from "@angular/core";
 import { Livro } from "../../models/livro.model";
 import { Pedido } from "../../models/pedido.model";
 
@@ -6,17 +6,18 @@ import { Pedido } from "../../models/pedido.model";
   providedIn: "root"
 })
 export class CarrinhoService {
-  itensCarrinho = signal<Livro[]>([]);
+  private readonly CHAVE_CARRINHO = 'yomeru_carrinho';
+
+  itensCarrinho = signal<Livro[]>(this.recuperarCarrinho());
   ultimoPedido = signal<Pedido | null>(null);
   formaPagamento = signal<'credito' | 'debito' | 'pix' | null>(null);
 
-   subtotal = computed(() => {
+  subtotal = computed(() => {
     return this.itensCarrinho().reduce((soma, livro) => soma + Number(livro.preco), 0);
   });
 
   frete = computed(() => {
     if (this.itensCarrinho().length === 0) return 0;
-
     return this.subtotal() >= 99.90 ? 0 : 12.90;
   });
 
@@ -31,14 +32,17 @@ export class CarrinhoService {
 
   adicionarAoCarrinho(livro: Livro) {
     this.itensCarrinho.update(itensAtuais => [...itensAtuais, livro]);
+    this.persistirCarrinho();
   }
 
-  removerDoCarrinho(id: string) {
-    this.itensCarrinho.update(itens => itens.filter(item => item.id !== id));
+  removerDoCarrinho(index: number) {
+    this.itensCarrinho.update(itens => itens.filter((_, i) => i !== index));
+    this.persistirCarrinho();
   }
 
   limparCarrinho() {
     this.itensCarrinho.set([]);
+    this.persistirCarrinho();
   }
 
   definirFormaPagamento(forma: 'credito' | 'debito' | 'pix') {
@@ -71,5 +75,14 @@ export class CarrinhoService {
 
   private gerarNumeroPedido(): string {
     return 'YM-' + Date.now().toString().slice(-8);
+  }
+
+  private persistirCarrinho() {
+    localStorage.setItem(this.CHAVE_CARRINHO, JSON.stringify(this.itensCarrinho()));
+  }
+
+  private recuperarCarrinho(): Livro[] {
+    const dados = localStorage.getItem(this.CHAVE_CARRINHO);
+    return dados ? JSON.parse(dados) : [];
   }
 }

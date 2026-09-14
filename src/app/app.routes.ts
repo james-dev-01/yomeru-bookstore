@@ -11,6 +11,7 @@ import { Hero } from './features/hero/hero';
 import { Favoritos } from './features/favoritos/favoritos';
 import { Perfil } from './features/perfil/perfil';
 import { Pagamento } from './features/pagamento/pagamento';
+import { NaoEncontrado } from './features/nao-encontrado/nao-encontrado';
 import { authGuard } from './core/auth-guard';
 import { adminGuard } from './core/admin-guard';
 
@@ -26,5 +27,6 @@ export const routes: Routes = [
   { path: 'perfil', component: Perfil, canActivate: [authGuard] },
   { path: 'pedido-confirmado', component: PedidoConfirmado, canActivate: [authGuard] },
   { path: 'admin', component: Admin, canActivate: [adminGuard] },
-  { path: 'acesso-negado', component: AcessoNegado }
+  { path: 'acesso-negado', component: AcessoNegado },
+  { path: '**', component: NaoEncontrado }
 ];
