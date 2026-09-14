@@ -1,0 +1,87 @@
+.favoritos-container {
+  padding: 2rem 1.5rem;
+  min-height: 60vh;
+}
+
+.titulo-secao {
+  color: var(--texto-principal, #f8fafc);
+  font-family: var(--fonte-titulos, 'Poppins', sans-serif);
+  margin-bottom: 1.5rem;
+}
+
+.mensagem-status {
+  color: #94a3b8;
+  font-size: 1rem;
+}
+
+.mensagem-status a {
+  color: #00e676;
+  text-decoration: underline;
+}
+
+.lista-livros-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.livro-card {
+  background-color: #161d2b;
+  border: 1px solid #2a3344;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.livro-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+}
+
+.livro-card h3 {
+  color: #f8fafc;
+  font-size: 1rem;
+  margin: 0 0 0.25rem;
+}
+
+.autor {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  margin: 0 0 0.5rem;
+}
+
+.preco-destaque {
+  color: #00e676;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.btn-comprar {
+  background-color: #00e676;
+  color: #04342c;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem;
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.btn-remover-favorito {
+  background: transparent;
+  border: 1px solid #94a3b8;
+  color: #94a3b8;
+  border-radius: 6px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-remover-favorito:hover {
+  border-color: #00e676;
+  color: #00e676;
+}

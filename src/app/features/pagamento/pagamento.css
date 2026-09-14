@@ -1,0 +1,120 @@
+.pagamento-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+.pagamento-card {
+  background-color: var(--bg-cards, #161D2B);
+  border: 1px solid var(--borda-card, #6366F1);
+  border-radius: 20px;
+  padding: 2.5rem 2.75rem;
+  max-width: 520px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.15);
+}
+
+.pagamento-titulo {
+  font-family: var(--fonte-titulos, 'Poppins', sans-serif);
+  color: var(--texto-principal, #F8FAFC);
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.opcoes-pagamento {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.opcao-pagamento {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  background-color: var(--bg-principal, #0B0E14);
+  border: 1px solid var(--borda-card, #6366F1);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.opcao-pagamento:hover {
+  border-color: var(--cor-destaque, #00E676);
+}
+
+.opcao-pagamento.selecionada {
+  border-color: var(--cor-destaque, #00E676);
+  background-color: rgba(0, 230, 118, 0.06);
+}
+
+.opcao-icone {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.opcao-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.opcao-texto strong {
+  font-family: var(--fonte-titulos, 'Poppins', sans-serif);
+  color: var(--texto-principal, #F8FAFC);
+  font-size: 0.95rem;
+}
+
+.opcao-texto small {
+  font-family: var(--fonte-textos, 'Inter', sans-serif);
+  color: var(--texto-secundario, #94A3B8);
+  font-size: 0.78rem;
+}
+
+.pagamento-nota {
+  font-family: var(--fonte-textos, 'Inter', sans-serif);
+  color: var(--texto-secundario, #94A3B8);
+  font-size: 0.82rem;
+  margin-bottom: 1.25rem;
+}
+
+.pagamento-resumo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  padding-top: 1rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--fonte-textos, 'Inter', sans-serif);
+  color: var(--texto-principal, #F8FAFC);
+}
+
+.pagamento-resumo strong {
+  font-family: var(--fonte-titulos, 'Poppins', sans-serif);
+  font-size: 1.2rem;
+  color: var(--cor-destaque, #00E676);
+}
+
+.btn-confirmar-pagamento {
+  width: 100%;
+  padding: 0.85rem;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--fonte-titulos, 'Poppins', sans-serif);
+  font-weight: 600;
+  cursor: pointer;
+  background-color: var(--cor-destaque, #00E676);
+  color: var(--bg-principal, #0B0E14);
+}
+
+.btn-confirmar-pagamento:hover:not(:disabled) {
+  background-color: var(--cor-destaque-hover, #00c862);
+}
+
+.btn-confirmar-pagamento:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

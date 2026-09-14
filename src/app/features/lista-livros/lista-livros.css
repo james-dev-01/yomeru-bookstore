@@ -7,11 +7,12 @@
 .barra-busca input {
   flex: 1;
   background-color: var(--bg-cards);
-  border: 1px solid transparent;
-  border-radius: 8px;
-  padding: 12px 16px;
+  border: 1px solid var(--borda-card, #2a3344);
+  border-radius: 10px;
+  padding: 14px 18px;
   color: var(--texto-principal);
   font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .barra-busca input::placeholder {
@@ -20,29 +21,31 @@
 
 .barra-busca input:focus {
   outline: none;
-  border-color: var(--borda-card);
+  border-color: var(--cor-destaque, #00e676);
+  box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.15);
 }
 
 .barra-busca button {
   background-color: var(--cor-destaque);
   color: var(--bg-principal);
   border: none;
-  border-radius: 8px;
-  padding: 0 24px;
+  border-radius: 10px;
+  padding: 0 28px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
 .barra-busca button:hover {
   background-color: var(--cor-destaque-hover);
+  transform: translateY(-1px);
 }
 
 .filtros-categoria {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  padding: 16px 24px 0;
+  padding: 18px 24px 0;
 }
 
 .filtros-categoria button {
@@ -53,18 +56,21 @@
   padding: 8px 18px;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
 }
 
 .filtros-categoria button:hover {
   border-color: var(--cor-destaque);
   color: var(--cor-destaque);
+  background-color: rgba(0, 230, 118, 0.08);
 }
 
 .titulo-secao {
   padding: 0 24px;
-  margin: 8px 0 0;
+  margin: 28px 0 0;
   font-size: 1.5rem;
+  font-family: var(--fonte-titulos, 'Poppins', sans-serif);
+  font-weight: 500;
 }
 
 .mensagem-status {
@@ -82,20 +88,45 @@
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 24px;
   padding: 24px;
+  align-items: start;
+}
+
+.livro-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-cards, #161d2b);
+  border: 1px solid var(--borda-card, #232c3d);
+  border-radius: 14px;
+  padding: 14px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.livro-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0, 230, 118, 0.4);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 230, 118, 0.12);
 }
 
 .livro-card img {
   width: 100%;
   height: 260px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 10px;
   display: block;
   margin-bottom: 12px;
+  transition: transform 0.35s ease;
+}
+
+.livro-card:hover img {
+  transform: scale(1.04);
 }
 
 .livro-card h3 {
   font-size: 1rem;
   margin: 0 0 4px;
+  line-height: 1.35;
 }
 
 .livro-card .autor {
@@ -107,13 +138,61 @@
 .livro-card .sinopse-livro {
   color: var(--texto-secundario);
   font-size: 0.85rem;
-  line-height: 1.5;
+  line-height: 1.4;
+  height: 3.9em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .livro-card .preco {
-  margin: 8px 0 12px;
+  margin: 12px 0 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--cor-destaque, #00e676);
 }
 
 .livro-card button {
   width: 100%;
+}
+
+.livro-card .btn-comprar {
+  background-color: var(--cor-destaque, #00e676);
+  color: var(--bg-principal, #04342c);
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.livro-card .btn-comprar:hover {
+  background-color: var(--cor-destaque-hover, #00c862);
+  transform: translateY(-1px);
+}
+
+.livro-card .btn-favorito {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 36px;
+  height: 36px;
+  background: rgba(11, 14, 20, 0.75);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.livro-card .btn-favorito:hover {
+  transform: scale(1.15);
+  background: rgba(11, 14, 20, 0.9);
 }

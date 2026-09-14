@@ -1,0 +1,62 @@
+<div class="pagamento-container">
+  <div class="pagamento-card">
+    <h2 class="pagamento-titulo">Forma de pagamento</h2>
+
+    <div class="opcoes-pagamento">
+      <button
+        type="button"
+        class="opcao-pagamento"
+        [class.selecionada]="formaSelecionada() === 'credito'"
+        (click)="selecionar('credito')">
+        <span class="opcao-icone">💳</span>
+        <span class="opcao-texto">
+          <strong>Cartão de Crédito</strong>
+          <small>Em até 3x sem juros</small>
+        </span>
+      </button>
+
+      <button
+        type="button"
+        class="opcao-pagamento"
+        [class.selecionada]="formaSelecionada() === 'debito'"
+        (click)="selecionar('debito')">
+        <span class="opcao-icone">💳</span>
+        <span class="opcao-texto">
+          <strong>Cartão de Débito</strong>
+          <small>Pagamento à vista</small>
+        </span>
+      </button>
+
+      <button
+        type="button"
+        class="opcao-pagamento"
+        [class.selecionada]="formaSelecionada() === 'pix'"
+        (click)="selecionar('pix')">
+        <span class="opcao-icone">⚡</span>
+        <span class="opcao-texto">
+          <strong>PIX</strong>
+          <small>Aprovação imediata</small>
+        </span>
+      </button>
+    </div>
+
+    @if (formaSelecionada() === 'pix') {
+      <p class="pagamento-nota">
+        A chave PIX será gerada na tela de confirmação do pedido.
+      </p>
+    }
+
+    <div class="pagamento-resumo">
+      <span>Total a pagar</span>
+      <strong>R$ {{ total() | number:'1.2-2' }}</strong>
+    </div>
+
+    <button
+      type="button"
+      class="btn-confirmar-pagamento"
+      [disabled]="!formaSelecionada()"
+      (click)="confirmarPagamento()">
+      Confirmar pagamento
+    </button>
+  </div>
+</div>

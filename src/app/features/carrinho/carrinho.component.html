@@ -5,7 +5,7 @@
     <p>O carrinho está vazio.</p>
   } @else {
     <div class="lista-itens">
-      @for (item of itens(); track $index) {
+      @for (item of itens(); track item.id) {
         <mat-card class="carrinho-item">
           <img mat-card-image [src]="item.capa" alt="capa do livro">
           <mat-card-content>
@@ -13,13 +13,39 @@
             <p>R$ {{ item.preco }}</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button color="warn" (click)="removerItem($index)">Remover</button>
+            <button mat-button class="btn-remover" (click)="removerItem(item.id)">Remover</button>
           </mat-card-actions>
         </mat-card>
       }
     </div>
 
     <div class="resumo">
+      <div class="cep-grupo">
+        <label for="cep">CEP para entrega</label>
+        <input
+          id="cep"
+          type="text"
+          inputmode="numeric"
+          placeholder="00000-000"
+          maxlength="9"
+          class="cep-input"
+          [value]="cep()"
+          (input)="onCepChange($any($event.target).value)"
+        />
+
+        @if (buscandoCep()) {
+          <p class="cep-status">Buscando endereço...</p>
+        }
+
+        @if (endereco()) {
+          <p class="cep-status cep-encontrado">Entregando para: {{ endereco()!.cidade }} - {{ endereco()!.uf }}</p>
+        }
+
+        @if (cepInvalido()) {
+          <p class="cep-status cep-erro">CEP não encontrado. Confira e tente novamente.</p>
+        }
+      </div>
+
       <p>Subtotal: R$ {{ subtotal() | number:'1.2-2' }}</p>
       
       @if (frete() === 0) {

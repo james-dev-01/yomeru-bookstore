@@ -3,8 +3,19 @@
         <a routerLink="/">yomeru</a>
     </div>
     <nav class="nav-links">
-        <a routerLink="/">Catálogo</a>
+        <a routerLink="/catalogo">Catálogo</a>
         <a routerLink="/sobre">Sobre</a>
+
+        @if (usuarioLogado()) {
+            <a routerLink="/favoritos" class="btn-favoritos">
+                Favoritos
+                @if (quantidadeFavoritos() > 0)
+                {
+                    <span class="badge">{{ quantidadeFavoritos() }}</span>
+                }
+            </a>
+        }
+
         <a routerLink="/carrinho" class="btn-carrinho">
             Carrinho
             @if (quantidadedeItens() > 0)
@@ -14,7 +25,7 @@
         </a>
 
         @if (usuarioLogado(); as usuario) {
-            <span class="usuario-nome">Olá, {{ usuario.nome }}</span>
+            <a routerLink="/perfil" class="usuario-nome">Olá, {{ usuario.nome }}</a>
             <a (click)="sair()" class="btn-sair">Sair</a>
         } @else {
             <a routerLink="/login" class="btn-entrar">Entrar</a>

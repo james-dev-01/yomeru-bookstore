@@ -1,8 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { SlicePipe } from '@angular/common';
 import { LivroService } from '../../core/livro.service';
 import { CarrinhoService } from '../../core/services/carrinho.service';
+import { FavoritosService } from '../../core/services/favoritos.service';
+import { AuthFacade } from '../../core/facades/auth.facade';
+import { Livro } from '../../models/livro.model';
 
 @Component({
   selector: 'app-lista-livros',
@@ -13,12 +16,14 @@ import { CarrinhoService } from '../../core/services/carrinho.service';
 })
 export class ListaLivrosComponent implements OnInit {
   livroService = inject(LivroService);
+  favoritosService = inject(FavoritosService);
   private carrinhoService = inject(CarrinhoService);
+  private authFacade = inject(AuthFacade);
+  private router = inject(Router);
 
   termoBusca = signal<string>('');
 
   ngOnInit() {
-    
     this.livroService.buscarVitrinePrincipal();
   }
 
@@ -27,7 +32,6 @@ export class ListaLivrosComponent implements OnInit {
     if (termo) {
       this.livroService.buscarLivrosDaApi(termo);
     } else {
-   
       this.livroService.buscarVitrinePrincipal();
     }
   }
@@ -40,7 +44,19 @@ export class ListaLivrosComponent implements OnInit {
     this.livroService.buscarLivrosDaApi('subject:' + categoria);
   }
 
-  adicionarNoCarrinho(livro: any) {
+  adicionarNoCarrinho(livro: Livro) {
+    if (!this.authFacade.usuarioEstaLogado()) {
+      this.router.navigate(['/login']);
+      return;
+    }
     this.carrinhoService.adicionarAoCarrinho(livro);
+  }
+
+  alternarFavorito(livro: Livro) {
+    if (!this.authFacade.usuarioEstaLogado()) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    this.favoritosService.alternarFavorito(livro);
   }
 }

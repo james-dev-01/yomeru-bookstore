@@ -44,4 +44,8 @@ export class AuthFacade {
   obterUsuarioLogado(): Usuario | null {
     return this.authService.getUsuarioAtual();
   }
+
+  atualizarPerfil(dados: Partial<Usuario>): void {
+    this.authService.atualizarPerfil(dados);
+  }
 }

@@ -1,0 +1,25 @@
+<div class="favoritos-container">
+  <h2 class="titulo-secao">💚 Meus Favoritos</h2>
+
+  @if (favoritosService.itensFavoritos().length === 0) {
+    <p class="mensagem-status">
+      Você ainda não favoritou nenhum livro.
+      <a routerLink="/catalogo">Explorar catálogo</a>
+    </p>
+  } @else {
+    <div class="lista-livros-container">
+      @for (livro of favoritosService.itensFavoritos(); track livro.id) {
+        <div class="livro-card card-livro">
+          <img [src]="livro.capa" [alt]="livro.titulo" [routerLink]="['/livro', livro.id]" style="cursor: pointer;" />
+
+          <h3>{{ livro.titulo }}</h3>
+          <p class="autor">{{ livro.autor }}</p>
+          <p class="preco preco-destaque">R$ {{ livro.preco }}</p>
+
+          <button class="btn-comprar" (click)="adicionarNoCarrinho(livro)">Adicionar ao carrinho</button>
+          <button class="btn-remover-favorito" (click)="removerFavorito(livro.id)">Remover dos favoritos</button>
+        </div>
+      }
+    </div>
+  }
+</div>

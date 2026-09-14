@@ -34,7 +34,15 @@
   <div class="lista-livros-container">
     @for (livro of livroService.livros(); track livro.id) {
       <div class="livro-card card-livro">
-       
+
+        <button
+          class="btn-favorito"
+          [class.ativo]="favoritosService.ehFavorito(livro.id)"
+          (click)="alternarFavorito(livro)"
+        >
+          {{ favoritosService.ehFavorito(livro.id) ? '💚' : '🤍' }}
+        </button>
+
         <img [src]="livro.capa" [alt]="livro.titulo" [routerLink]="['/livro', livro.id]" style="cursor: pointer;" />
         
         <h3>{{ livro.titulo }}</h3>

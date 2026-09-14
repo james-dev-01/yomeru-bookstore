@@ -101,6 +101,14 @@ export class AuthService {
     return this.usuarioAtual$.value;
   }
 
+  atualizarPerfil(dados: Partial<Pick<Usuario, 'nome' | 'avatar'>>): void {
+    const atual = this.usuarioAtual$.value;
+    if (!atual) return;
+
+    const atualizado: Usuario = { ...atual, ...dados };
+    this.definirUsuario(atualizado);
+  }
+
   private definirUsuario(usuario: Usuario): void {
     localStorage.setItem(this.CHAVE_STORAGE, JSON.stringify(usuario));
     this.usuarioAtual$.next(usuario);

@@ -1,0 +1,121 @@
+@if (usuarioLogado(); as usuario) {
+  <div class="perfil-container">
+    <div class="perfil-card">
+      <div class="admin-aviso">
+        <span class="admin-aviso-icone">⚠️</span>
+        <span class="admin-aviso-texto">
+          Este projeto não tem um banco de dados real — é apenas um portfólio de demonstração. Por isso, as alterações do seu perfil ficam salvas aqui no seu navegador (localStorage) e só existem neste dispositivo.
+        </span>
+      </div>
+
+      <h1 class="perfil-titulo">Meu Perfil</h1>
+
+      <div class="perfil-avatar-preview">
+        <img [src]="avatar() || usuario.avatar" alt="Avatar do usuário" />
+      </div>
+
+      <div class="campo-grupo">
+        <label for="nome">Nome</label>
+        <input
+          id="nome"
+          type="text"
+          [ngModel]="nome()"
+          (ngModelChange)="nome.set($event)"
+          class="campo-input"
+        />
+      </div>
+
+      <div class="campo-grupo">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          [value]="usuario.email"
+          class="campo-input"
+          disabled
+        />
+      </div>
+
+      <div class="campo-grupo">
+        <label for="avatar">URL do Avatar (opcional)</label>
+        <input
+          id="avatar"
+          type="text"
+          [ngModel]="avatar()"
+          (ngModelChange)="avatar.set($event)"
+          placeholder="Deixe em branco para gerar automaticamente"
+          class="campo-input"
+        />
+      </div>
+
+      <button class="btn-login btn-email" (click)="salvarPerfil()" [disabled]="salvando()">
+        @if (salvando()) { Salvando... } @else { Salvar alterações }
+      </button>
+
+      @if (mensagemSucesso()) {
+        <p class="perfil-sucesso">Perfil atualizado com sucesso!</p>
+      }
+
+      @if (usuario.role === 'admin') {
+        <hr class="perfil-divisor" />
+
+        <h2 class="admin-secao-titulo">Painel Administrativo</h2>
+
+        <div class="cards-metricas">
+          <div class="card-metrica">
+            <span class="metrica-label">Faturamento Total</span>
+            <span class="metrica-valor destaque">{{ formatarMoeda(faturamentoTotal()) }}</span>
+          </div>
+          <div class="card-metrica">
+            <span class="metrica-label">Pedidos Realizados</span>
+            <span class="metrica-valor">{{ totalPedidos().toLocaleString('pt-BR') }}</span>
+          </div>
+          <div class="card-metrica">
+            <span class="metrica-label">Usuários Cadastrados</span>
+            <span class="metrica-valor">{{ totalUsuarios().toLocaleString('pt-BR') }}</span>
+          </div>
+          <div class="card-metrica">
+            <span class="metrica-label">Ticket Médio</span>
+            <span class="metrica-valor">{{ formatarMoeda(ticketMedio()) }}</span>
+          </div>
+        </div>
+
+        <div class="rankings-container">
+          <div class="ranking-coluna">
+            <h3 class="ranking-titulo">📈 Mais Vendidos</h3>
+            @for (livro of livrosMaisVendidos(); track livro.titulo) {
+              <div class="livro-item">
+                <img [src]="gerarUrlCapa(livro.titulo, livro.corCapa)" [alt]="livro.titulo" class="livro-capa" />
+                <div class="livro-info">
+                  <span class="livro-titulo">{{ livro.titulo }}</span>
+                  <span class="livro-autor">{{ livro.autor }}</span>
+                </div>
+                <div class="livro-numeros">
+                  <span class="livro-vendas">{{ livro.vendas }} vendas</span>
+                  <span class="livro-faturamento">{{ formatarMoeda(livro.faturamento) }}</span>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="ranking-coluna">
+            <h3 class="ranking-titulo">📉 Menos Vendidos</h3>
+            @for (livro of livrosMenosVendidos(); track livro.titulo) {
+              <div class="livro-item">
+                <img [src]="gerarUrlCapa(livro.titulo, livro.corCapa)" [alt]="livro.titulo" class="livro-capa" />
+                <div class="livro-info">
+                  <span class="livro-titulo">{{ livro.titulo }}</span>
+                  <span class="livro-autor">{{ livro.autor }}</span>
+                </div>
+                <div class="livro-numeros">
+                  <span class="livro-vendas">{{ livro.vendas }} vendas</span>
+                  <span class="livro-faturamento">{{ formatarMoeda(livro.faturamento) }}</span>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}

@@ -1,0 +1,169 @@
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+  background-color: var(--bg-principal, #0b0e14);
+  overflow: hidden;
+}
+
+/* glow ambiente pulsando atrás da imagem */
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 700px;
+  height: 700px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(0, 230, 118, 0.25) 0%,
+    rgba(99, 102, 241, 0.12) 40%,
+    transparent 70%
+  );
+  filter: blur(30px);
+  animation: respirar 4s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes respirar {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* partículas flutuando, tipo vagalume */
+.hero-particulas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-particulas::before,
+.hero-particulas::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #00e676;
+  box-shadow:
+    120px 180px 4px 1px rgba(0, 230, 118, 0.8),
+    -160px 260px 3px 0px rgba(99, 102, 241, 0.7),
+    240px 100px 2px 0px rgba(0, 230, 118, 0.6),
+    -220px 140px 3px 1px rgba(99, 102, 241, 0.6),
+    40px 340px 2px 0px rgba(0, 230, 118, 0.5),
+    -80px 60px 3px 0px rgba(99, 102, 241, 0.8);
+  animation: flutuar 6s ease-in-out infinite;
+}
+
+.hero-particulas::after {
+  animation-delay: -3s;
+  animation-duration: 8s;
+}
+
+@keyframes flutuar {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-30px);
+    opacity: 1;
+  }
+}
+
+/* imagem: entra com fade, depois flutua e pulsa pra sempre */
+.hero-imagem {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation:
+    entrar-fade 1.2s ease-out forwards,
+    flutuar-arvore 6s ease-in-out infinite 1.2s,
+    pulsar-glow 3s ease-in-out infinite 1.2s;
+}
+
+@keyframes entrar-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes flutuar-arvore {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes pulsar-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 26px rgba(0, 230, 118, 0.55))
+            drop-shadow(0 0 50px rgba(99, 102, 241, 0.25));
+  }
+  50% {
+    filter: drop-shadow(0 0 42px rgba(0, 230, 118, 0.8))
+            drop-shadow(0 0 70px rgba(99, 102, 241, 0.4));
+  }
+}
+
+.hero-texto {
+  position: relative;
+  z-index: 1;
+  font-family: var(--fonte-titulos, 'Poppins', sans-serif);
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--texto-principal, #f8fafc);
+  max-width: 500px;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: entrar-fade 1s ease-out forwards 0.6s;
+}
+
+a.hero-botao {
+  position: relative;
+  z-index: 1;
+  font-family: var(--fonte-textos, 'Inter', sans-serif);
+  font-weight: 500;
+  font-size: 1rem;
+  background-color: var(--cor-destaque, #00e676);
+  color: #04342c;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem 2.2rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.2s ease;
+  opacity: 0;
+  animation: entrar-fade 1s ease-out forwards 1s;
+}
+
+a.hero-botao:hover {
+  background-color: var(--cor-destaque-hover, #00c862);
+}
+
+a.hero-botao:visited {
+  color: #04342c;
+}

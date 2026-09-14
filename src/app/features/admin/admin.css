@@ -5,15 +5,16 @@
 }
 
 .admin-aviso {
-  background-color: rgba(0, 230, 118, 0.1);
-  border: 1px solid var(--cor-destaque, #00E676);
-  color: var(--cor-destaque, #00E676);
+  background-color: rgba(251, 191, 36, 0.1);
+  border: 1px solid #FBBF24;
+  color: #FBBF24;
   padding: 0.75rem 1rem;
   border-radius: 8px;
   font-size: 0.85rem;
   margin-bottom: 1.5rem;
   font-family: var(--fonte-textos, 'Inter', sans-serif);
 }
+
 
 .admin-titulo {
   font-family: var(--fonte-titulos, 'Poppins', sans-serif);

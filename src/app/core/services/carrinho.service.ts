@@ -8,6 +8,7 @@ import { Pedido } from "../../models/pedido.model";
 export class CarrinhoService {
   itensCarrinho = signal<Livro[]>([]);
   ultimoPedido = signal<Pedido | null>(null);
+  formaPagamento = signal<'credito' | 'debito' | 'pix' | null>(null);
 
    subtotal = computed(() => {
     return this.itensCarrinho().reduce((soma, livro) => soma + Number(livro.preco), 0);
@@ -32,15 +33,25 @@ export class CarrinhoService {
     this.itensCarrinho.update(itensAtuais => [...itensAtuais, livro]);
   }
 
-  removerDoCarrinho(index: number) {
-    this.itensCarrinho.update(itens => itens.filter((_, i) => i !== index));
+  removerDoCarrinho(id: string) {
+    this.itensCarrinho.update(itens => itens.filter(item => item.id !== id));
   }
 
   limparCarrinho() {
     this.itensCarrinho.set([]);
   }
 
+  definirFormaPagamento(forma: 'credito' | 'debito' | 'pix') {
+    this.formaPagamento.set(forma);
+  }
+
   finalizarCompra(): Pedido {
+    const forma = this.formaPagamento();
+
+    if (!forma) {
+      throw new Error('Não é possível finalizar a compra sem uma forma de pagamento selecionada.');
+    }
+
     const pedido: Pedido = {
       numero: this.gerarNumeroPedido(),
       itens: this.itensCarrinho(),
@@ -48,10 +59,12 @@ export class CarrinhoService {
       frete: this.frete(),
       total: this.total(),
       data: new Date(),
+      formaPagamento: forma,
     };
 
     this.ultimoPedido.set(pedido);
     this.limparCarrinho();
+    this.formaPagamento.set(null);
 
     return pedido;
   }

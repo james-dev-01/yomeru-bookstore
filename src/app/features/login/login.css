@@ -204,3 +204,8 @@
   margin-bottom: 1.5rem;
   line-height: 1.5;
 }
+.modal-botoes {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}

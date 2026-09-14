@@ -71,3 +71,53 @@
 .resumo .btn-comprar:hover {
   background-color: var(--cor-destaque-hover) !important;
 }
+
+.btn-remover,
+.btn-remover .mdc-button__label {
+  color: #EF4444 !important;
+}
+
+.btn-remover:hover,
+.btn-remover:hover .mdc-button__label {
+  color: #DC2626 !important;
+}
+
+.cep-grupo {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.cep-grupo label {
+  color: var(--texto-secundario);
+  font-size: 0.85rem;
+}
+
+.cep-input {
+  background-color: var(--bg-principal);
+  border: 1px solid var(--borda-card);
+  border-radius: 8px;
+  padding: 0.65rem 0.9rem;
+  color: var(--texto-principal);
+  font-size: 0.9rem;
+  max-width: 180px;
+}
+
+.cep-status {
+  font-size: 0.8rem;
+  margin: 0 !important;
+}
+
+.cep-encontrado {
+  color: var(--cor-destaque);
+  font-weight: 600;
+}
+
+.cep-erro {
+  color: #FFB74D;
+  font-weight: 600;
+}
