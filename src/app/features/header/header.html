@@ -3,11 +3,11 @@
         <a routerLink="/">yomeru</a>
     </div>
     <nav class="nav-links">
-        <a routerLink="/catalogo">Catálogo</a>
-        <a routerLink="/sobre">Sobre</a>
+        <a routerLink="/catalogo" routerLinkActive="link-ativo">Catálogo</a>
+        <a routerLink="/sobre" routerLinkActive="link-ativo">Sobre</a>
 
         @if (usuarioLogado()) {
-            <a routerLink="/favoritos" class="btn-favoritos">
+            <a routerLink="/favoritos" routerLinkActive="link-ativo" class="btn-favoritos">
                 Favoritos
                 @if (quantidadeFavoritos() > 0)
                 {
@@ -16,7 +16,7 @@
             </a>
         }
 
-        <a routerLink="/carrinho" class="btn-carrinho">
+        <a routerLink="/carrinho" routerLinkActive="link-ativo" class="btn-carrinho">
             Carrinho
             @if (quantidadedeItens() > 0)
             {
@@ -25,7 +25,10 @@
         </a>
 
         @if (usuarioLogado(); as usuario) {
-            <a routerLink="/perfil" class="usuario-nome">Olá, {{ usuario.nome }}</a>
+            @if (usuario.role === 'admin') {
+                <a routerLink="/admin" routerLinkActive="link-ativo" class="btn-admin-link">Admin</a>
+            }
+            <a routerLink="/perfil" routerLinkActive="link-ativo" class="usuario-nome">Olá, {{ usuario.nome }}</a>
             <a (click)="sair()" class="btn-sair">Sair</a>
         } @else {
             <a routerLink="/login" class="btn-entrar">Entrar</a>

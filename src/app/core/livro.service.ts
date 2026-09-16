@@ -1,6 +1,6 @@
 import { Injectable, inject, signal } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { map, Observable, switchMap, catchError, of, from, concatMap, delay, toArray } from "rxjs";
+import { map, Observable, switchMap, catchError, of, from, mergeMap, toArray } from "rxjs";
 import { Livro } from "../models/livro.model";
 import { environment } from "../../environments/environment";
 import { MEUS_LIVROS_ESCOLHIDOS } from "./vitrine-principal.data";
@@ -12,7 +12,6 @@ const CATEGORIA_PADRAO = "Categoria desconhecida";
 const SINOPSE_PADRAO = "Sinopse nao disponivel";
 
 const DURACAO_CACHE_MS = 15 * 60 * 1000;
-const INTERVALO_ENTRE_CHAMADAS_MS = 150;
 
 @Injectable({
   providedIn: "root"
@@ -39,7 +38,8 @@ export class LivroService {
     }
 
     from(MEUS_LIVROS_ESCOLHIDOS).pipe(
-      concatMap(titulo => {
+      // Usando mergeMap com concorrência de 5 requisições paralelas
+      mergeMap(titulo => {
         const googleUrl = `https://www.googleapis.com/books/v1/volumes?q=${titulo}&maxResults=1&key=${environment.googleBooksApiKey}`;
         return this.http.get<any>(googleUrl).pipe(
           map(googleData => {
@@ -55,10 +55,9 @@ export class LivroService {
               console.error('Falhou ao buscar:', titulo, '- status:', err.status);
             }
             return of(null);
-          }),
-          delay(INTERVALO_ENTRE_CHAMADAS_MS)
+          })
         );
-      }),
+      }, 5), // Limite de 5
       toArray()
     ).subscribe({
       next: (resultados) => {
@@ -98,7 +97,8 @@ export class LivroService {
         if (!livrosNyt || livrosNyt.length === 0) return of([]);
 
         return from(livrosNyt).pipe(
-          concatMap((livro: any) => {
+          // Usando mergeMap com concorrência de 5 aqui também
+          mergeMap((livro: any) => {
             const isbn = livro.primary_isbn13;
             const googleUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${environment.googleBooksApiKey}`;
 
@@ -112,10 +112,9 @@ export class LivroService {
               catchError((err) => {
                 console.error('Falhou ao buscar ISBN:', isbn, '- status:', err.status);
                 return of(null);
-              }),
-              delay(INTERVALO_ENTRE_CHAMADAS_MS)
+              })
             );
-          }),
+          }, 5), // Limite de 5
           toArray()
         );
       }),

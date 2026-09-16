@@ -5,7 +5,7 @@
     <p>O carrinho está vazio.</p>
   } @else {
     <div class="lista-itens">
-      @for (item of itens(); track item.id; let i = $index) {
+      @for (item of itens(); track i; let i = $index) {
         <mat-card class="carrinho-item">
           <img mat-card-image [src]="item.capa" alt="capa do livro">
           <mat-card-content>
@@ -38,7 +38,12 @@
         }
 
         @if (endereco()) {
-          <p class="cep-status cep-encontrado">Entregando para: {{ endereco()!.cidade }} - {{ endereco()!.uf }}</p>
+          <div class="endereco-encontrado">
+            <p class="cep-status cep-encontrado">
+              📍 {{ endereco()!.logradouro ? endereco()!.logradouro + ', ' : '' }}{{ endereco()!.bairro ? endereco()!.bairro + ' - ' : '' }}{{ endereco()!.cidade }}/{{ endereco()!.uf }}
+            </p>
+            <p class="cep-status cep-prazo">🚚 Previsão de entrega: {{ endereco()!.prazo }}</p>
+          </div>
         }
 
         @if (cepInvalido()) {

@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { CarrinhoService } from '../../core/services/carrinho.service';
 
 interface EnderecoViaCep {
+  logradouro: string;
+  bairro: string;
   localidade: string;
   uf: string;
   erro?: boolean;
@@ -32,7 +34,7 @@ export class CarrinhoComponent {
 
   cep = signal('');
   buscandoCep = signal(false);
-  endereco = signal<{ cidade: string; uf: string } | null>(null);
+  endereco = signal<{ logradouro: string; bairro: string; cidade: string; uf: string; prazo: string } | null>(null);
   cepInvalido = signal(false);
 
   removerItem(index: number) {
@@ -66,13 +68,29 @@ export class CarrinhoComponent {
           return;
         }
 
-        this.endereco.set({ cidade: dados.localidade, uf: dados.uf });
+        this.endereco.set({
+          logradouro: dados.logradouro,
+          bairro: dados.bairro,
+          cidade: dados.localidade,
+          uf: dados.uf,
+          prazo: this.calcularPrazoEntrega(dados.uf)
+        });
       },
       error: () => {
         this.buscandoCep.set(false);
         this.cepInvalido.set(true);
       }
     });
+  }
+
+  // Estimativa fictícia de prazo, baseada na região do CEP
+  private calcularPrazoEntrega(uf: string): string {
+    const sudeste = ['SP', 'RJ', 'MG', 'ES'];
+    const sul = ['PR', 'SC', 'RS'];
+
+    if (sudeste.includes(uf)) return '2 a 4 dias úteis';
+    if (sul.includes(uf)) return '3 a 6 dias úteis';
+    return '5 a 10 dias úteis';
   }
 
   finalizar() {

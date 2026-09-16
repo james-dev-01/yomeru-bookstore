@@ -1,5 +1,5 @@
 import { Component, inject, computed } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { CarrinhoService } from '../../core/services/carrinho.service';
 import { FavoritosService } from '../../core/services/favoritos.service';
 import { AuthFacade } from '../../core/facades/auth.facade';
@@ -8,7 +8,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './header.html',
   styleUrls: ['./header.css'],
 })

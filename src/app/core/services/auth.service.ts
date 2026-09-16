@@ -26,9 +26,9 @@ export class AuthService {
 
   loginComGoogle(): Observable<Usuario> {
     const usuarioFake: Usuario = {
-      nome: 'Jaime Teste',
-      email: 'jaime.teste@gmail.com',
-      avatar: 'https://ui-avatars.com/api/?name=Jaime+Teste&background=00E676&color=0B0E14',
+      nome: 'Conta Google',
+      email: 'usuario@gmail.com',
+      avatar: 'https://ui-avatars.com/api/?name=Conta+Google&background=00E676&color=0B0E14',
       provider: 'google',
       role: 'user'
     };
@@ -41,9 +41,9 @@ export class AuthService {
 
   loginComFacebook(): Observable<Usuario> {
     const usuarioFake: Usuario = {
-      nome: 'Jaime Facebook',
-      email: 'jaime.teste@facebook.com',
-      avatar: 'https://ui-avatars.com/api/?name=Jaime+Facebook&background=1877F2&color=fff',
+      nome: 'Conta Facebook',
+      email: 'usuario@facebook.com',
+      avatar: 'https://ui-avatars.com/api/?name=Conta+Facebook&background=1877F2&color=fff',
       provider: 'facebook',
       role: 'user'
     };
@@ -69,7 +69,14 @@ export class AuthService {
     );
   }
 
+  private readonly EMAIL_ADMIN = 'yomeru.admin@gmail.com';
+  private readonly SENHA_ADMIN = 'Eu$ouBatman1';
+
   loginComEmailSenha(email: string, senha: string): Observable<Usuario> {
+    if (email.toLowerCase() === this.EMAIL_ADMIN && senha === this.SENHA_ADMIN) {
+      return this.loginComoAdmin();
+    }
+
     const usuarioFake: Usuario = {
       nome: email.split('@')[0],
       email: email,

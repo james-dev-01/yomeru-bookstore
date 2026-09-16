@@ -121,3 +121,20 @@
   color: #FFB74D;
   font-weight: 600;
 }
+
+.endereco-encontrado {
+  background-color: rgba(0, 230, 118, 0.06);
+  border: 1px solid rgba(0, 230, 118, 0.25);
+  border-radius: 8px;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.endereco-encontrado .cep-encontrado {
+  margin-bottom: 4px !important;
+}
+
+.cep-prazo {
+  color: var(--texto-secundario);
+  font-weight: 400;
+}

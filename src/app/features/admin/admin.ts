@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 
 interface LivroVendas {
   titulo: string;
@@ -21,6 +21,28 @@ export class Admin {
   totalUsuarios = signal(9871);
   ticketMedio = signal(537.60);
 
+  // Metas mensais fictícias, usadas para calcular o progresso de cada métrica
+  metaFaturamento = signal(9000000);
+  metaPedidos = signal(16000);
+  metaUsuarios = signal(10500);
+  metaTicketMedio = signal(560);
+
+  percentualFaturamento = computed(() =>
+    Math.min(100, Math.round((this.faturamentoTotal() / this.metaFaturamento()) * 100))
+  );
+  percentualPedidos = computed(() =>
+    Math.min(100, Math.round((this.totalPedidos() / this.metaPedidos()) * 100))
+  );
+  percentualUsuarios = computed(() =>
+    Math.min(100, Math.round((this.totalUsuarios() / this.metaUsuarios()) * 100))
+  );
+  percentualTicketMedio = computed(() =>
+    Math.min(100, Math.round((this.ticketMedio() / this.metaTicketMedio()) * 100))
+  );
+
+  // Horário em que o painel foi carregado, só pra dar a sensação de dado ao vivo
+  ultimaAtualizacao = signal(new Date());
+
   livrosMaisVendidos = signal<LivroVendas[]>([
     { titulo: 'Solo Leveling, Vol. 6', autor: 'Chugong', vendas: 3241, faturamento: 129640, corCapa: '6366F1' },
     { titulo: 'O Pequeno Príncipe', autor: 'Antoine de Saint-Exupéry', vendas: 2987, faturamento: 119480, corCapa: '00E676' },
@@ -40,5 +62,9 @@ export class Admin {
 
   formatarMoeda(valor: number): string {
     return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
+
+  formatarHora(data: Date): string {
+    return data.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
   }
 }

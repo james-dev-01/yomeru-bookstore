@@ -3,24 +3,46 @@
     ⚠️ Dados meramente ilustrativos, gerados para fins de apresentação/demonstração.
   </div>
 
-  <h1 class="admin-titulo">Painel Administrativo</h1>
+  <div class="admin-titulo-linha">
+    <h1 class="admin-titulo">Painel Administrativo</h1>
+    <span class="selo-atualizado">
+      <span class="ponto-pulsante"></span>
+      Atualizado às {{ formatarHora(ultimaAtualizacao()) }}
+    </span>
+  </div>
 
   <div class="cards-metricas">
     <div class="card-metrica">
       <span class="metrica-label">Faturamento Total</span>
       <span class="metrica-valor destaque">{{ formatarMoeda(faturamentoTotal()) }}</span>
+      <div class="meta-barra-fundo">
+        <div class="meta-barra-preenchida" [style.width.%]="percentualFaturamento()"></div>
+      </div>
+      <span class="meta-texto">Meta: {{ formatarMoeda(metaFaturamento()) }} — {{ percentualFaturamento() }}% atingido</span>
     </div>
     <div class="card-metrica">
       <span class="metrica-label">Pedidos Realizados</span>
       <span class="metrica-valor">{{ totalPedidos().toLocaleString('pt-BR') }}</span>
+      <div class="meta-barra-fundo">
+        <div class="meta-barra-preenchida" [style.width.%]="percentualPedidos()"></div>
+      </div>
+      <span class="meta-texto">Meta: {{ metaPedidos().toLocaleString('pt-BR') }} — {{ percentualPedidos() }}% atingido</span>
     </div>
     <div class="card-metrica">
       <span class="metrica-label">Usuários Cadastrados</span>
       <span class="metrica-valor">{{ totalUsuarios().toLocaleString('pt-BR') }}</span>
+      <div class="meta-barra-fundo">
+        <div class="meta-barra-preenchida" [style.width.%]="percentualUsuarios()"></div>
+      </div>
+      <span class="meta-texto">Meta: {{ metaUsuarios().toLocaleString('pt-BR') }} — {{ percentualUsuarios() }}% atingido</span>
     </div>
     <div class="card-metrica">
       <span class="metrica-label">Ticket Médio</span>
       <span class="metrica-valor">{{ formatarMoeda(ticketMedio()) }}</span>
+      <div class="meta-barra-fundo">
+        <div class="meta-barra-preenchida" [style.width.%]="percentualTicketMedio()"></div>
+      </div>
+      <span class="meta-texto">Meta: {{ formatarMoeda(metaTicketMedio()) }} — {{ percentualTicketMedio() }}% atingido</span>
     </div>
   </div>
 
