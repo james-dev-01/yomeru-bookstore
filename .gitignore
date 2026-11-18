@@ -53,3 +53,10 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Back-end (NestJS)
+/backend/dist
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
