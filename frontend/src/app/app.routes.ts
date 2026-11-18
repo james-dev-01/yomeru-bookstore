@@ -12,8 +12,8 @@ import { Favoritos } from './features/favoritos/favoritos';
 import { Perfil } from './features/perfil/perfil';
 import { Pagamento } from './features/pagamento/pagamento';
 import { NaoEncontrado } from './features/nao-encontrado/nao-encontrado';
-import { authGuard } from './core/auth-guard';
-import { adminGuard } from './core/admin-guard';
+import { authGuard } from './core/guards/auth-guard';
+import { adminGuard } from './core/guards/admin-guard';
 
 export const routes: Routes = [
   { path: '', component: Hero },
