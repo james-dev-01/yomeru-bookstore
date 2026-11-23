@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CarrinhoComponent } from './carrinho';
-import { CarrinhoService } from '../../core/services/carrinho.service';
-import { Livro } from '../../models/livro.model';
+import { CarrinhoService } from '../../../core/services/carrinho.service';
+import { Livro } from '../../../models/livro.model';
 
 describe('CarrinhoComponent', () => {
   let component: CarrinhoComponent;

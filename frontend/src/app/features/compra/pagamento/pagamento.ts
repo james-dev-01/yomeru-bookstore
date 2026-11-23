@@ -1,7 +1,7 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { CarrinhoService } from '../../core/services/carrinho.service';
+import { CarrinhoService } from '../../../core/services/carrinho.service';
 
 type FormaPagamento = 'credito' | 'debito' | 'pix';
 

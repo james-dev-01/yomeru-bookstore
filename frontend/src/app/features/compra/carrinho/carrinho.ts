@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { CarrinhoService } from '../../core/services/carrinho.service';
+import { CarrinhoService } from '../../../core/services/carrinho.service';
 
 interface EnderecoViaCep {
   logradouro: string;
