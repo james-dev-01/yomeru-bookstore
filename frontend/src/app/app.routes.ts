@@ -1,17 +1,17 @@
 import { Routes } from '@angular/router';
-import { ListaLivrosComponent } from './features/lista-livros/lista-livros';
+import { ListaLivrosComponent } from './features/livros/lista-livros/lista-livros';
 import { CarrinhoComponent } from './features/compra/carrinho/carrinho'; // mudou
-import { LivroDetalheComponent } from './features/livro-detalhe/livro-detalhe';
-import { Sobre } from './features/sobre/sobre';
+import { LivroDetalheComponent } from './features/livros/livro-detalhe/livro-detalhe';
+import { Sobre } from './features/paginas/sobre/sobre';
 import { PedidoConfirmado } from './features/compra/pedido-confirmado/pedido-confirmado'; // mudou
 import { Admin } from './features/admin/admin';
-import { AcessoNegado } from './features/acesso-negado/acesso-negado';
-import { Login } from './features/login/login';
+import { AcessoNegado } from './features/paginas/acesso-negado/acesso-negado';
+import { Login } from './features/conta/login/login';
 import { Hero } from './features/home/hero/hero'; // mudou
-import { Favoritos } from './features/favoritos/favoritos';
-import { Perfil } from './features/perfil/perfil';
+import { Favoritos } from './features/livros/favoritos/favoritos';
+import { Perfil } from './features/conta/perfil/perfil';
 import { Pagamento } from './features/compra/pagamento/pagamento'; // mudou
-import { NaoEncontrado } from './features/nao-encontrado/nao-encontrado';
+import { NaoEncontrado } from './features/paginas/nao-encontrado/nao-encontrado';
 import { authGuard } from './core/guards/auth-guard';
 import { adminGuard } from './core/guards/admin-guard';
 

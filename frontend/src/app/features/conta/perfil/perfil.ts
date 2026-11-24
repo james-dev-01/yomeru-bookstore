@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthFacade } from '../../core/facades/auth.facade';
+import { AuthFacade } from '../../../core/facades/auth.facade';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 interface LivroVendas {

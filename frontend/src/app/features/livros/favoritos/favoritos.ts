@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FavoritosService } from '../../core/services/favoritos.service';
-import { CarrinhoService } from '../../core/services/carrinho.service';
+import { FavoritosService } from '../../../core/services/favoritos.service';
+import { CarrinhoService } from '../../../core/services/carrinho.service';
 
 @Component({
   selector: 'app-favoritos',

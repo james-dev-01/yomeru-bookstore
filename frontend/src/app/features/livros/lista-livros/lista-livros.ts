@@ -1,11 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { SlicePipe } from '@angular/common';
-import { LivroService } from '../../core/services/livro.service';
-import { CarrinhoService } from '../../core/services/carrinho.service';
-import { FavoritosService } from '../../core/services/favoritos.service';
-import { AuthFacade } from '../../core/facades/auth.facade';
-import { Livro } from '../../models/livro.model';
+import { LivroService } from '../../../core/services/livro.service';
+import { CarrinhoService } from '../../../core/services/carrinho.service';
+import { FavoritosService } from '../../../core/services/favoritos.service';
+import { AuthFacade } from '../../../core/facades/auth.facade';
+import { Livro } from '../../../models/livro.model';
 
 @Component({
   selector: 'app-lista-livros',

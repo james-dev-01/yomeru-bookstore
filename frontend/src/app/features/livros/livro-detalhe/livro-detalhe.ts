@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Livro } from '../../models/livro.model';
-import { LivroService } from '../../core/services/livro.service';
-import { CarrinhoService } from '../../core/services/carrinho.service';
+import { Livro } from '../../../models/livro.model';
+import { LivroService } from '../../../core/services/livro.service';
+import { CarrinhoService } from '../../../core/services/carrinho.service';
 
 @Component({
   selector: 'app-livro-detalhe',
