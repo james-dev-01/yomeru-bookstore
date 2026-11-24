@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { map, Observable, switchMap, catchError, of, from, mergeMap, toArray } from "rxjs";
 import { Livro } from "../../models/livro.model";
 import { environment } from "../../../environments/environment";
-import { MEUS_LIVROS_ESCOLHIDOS } from "../vitrine-principal.data";
+import { MEUS_LIVROS_ESCOLHIDOS } from "../../data/vitrine-principal.data";
 
 const SEPARADOR_AUTORES = ", ";
 const TITULO_PADRAO = "Titulo Indisponivel";
