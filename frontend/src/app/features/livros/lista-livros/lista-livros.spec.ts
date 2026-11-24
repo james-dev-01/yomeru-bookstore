@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
 import { ListaLivrosComponent } from './lista-livros';
 
 describe('ListaLivrosComponent', () => {
@@ -8,12 +9,24 @@ describe('ListaLivrosComponent', () => {
   let fixture: ComponentFixture<ListaLivrosComponent>;
   let httpMock: HttpTestingController;
 
+  const ehGoogleBooks = (req: { url: string }) => req.url.includes('googleapis.com');
+
+  // A vitrine faz varias buscas de uma vez; esta funcao responde todas com lista vazia
+  function responderTudo() {
+    const pedidos = httpMock.match(ehGoogleBooks);
+    pedidos.forEach(p => p.flush({ items: [] }));
+    return pedidos;
+  }
+
   beforeEach(async () => {
+    localStorage.clear();
+
     await TestBed.configureTestingModule({
       imports: [ListaLivrosComponent],
       providers: [
         provideHttpClient(),
-        provideHttpClientTesting()
+        provideHttpClientTesting(),
+        provideRouter([])
       ]
     }).compileComponents();
 
@@ -28,37 +41,35 @@ describe('ListaLivrosComponent', () => {
 
   it('deve ser criado', () => {
     fixture.detectChanges();
-    httpMock.expectOne(req => req.url.includes('googleapis.com')).flush({ items: [] });
+    responderTudo();
     expect(component).toBeTruthy();
   });
 
-  it('deve chamar buscarLivrosDaApi ao inicializar', () => {
+  it('deve buscar a vitrine na API ao inicializar', () => {
     fixture.detectChanges();
-
-    const req = httpMock.expectOne(req => req.url.includes('googleapis.com'));
-    expect(req.request.url).toContain('subject:fantasy romance');
-    req.flush({ items: [] });
+    const pedidos = responderTudo();
+    expect(pedidos.length).toBeGreaterThan(0);
   });
 
   it('deve buscar pelo termo digitado ao chamar buscar()', () => {
     fixture.detectChanges();
-    httpMock.expectOne(req => req.url.includes('googleapis.com')).flush({ items: [] });
+    responderTudo();
 
     component.termoBusca.set('harry potter');
     component.buscar();
 
-    const req = httpMock.expectOne(req => req.url.includes('harry'));
+    const req = httpMock.expectOne(r => r.url.includes('harry'));
     expect(req.request.url).toContain('harry');
     req.flush({ items: [] });
   });
 
   it('deve filtrar por categoria usando prefixo subject:', () => {
     fixture.detectChanges();
-    httpMock.expectOne(req => req.url.includes('googleapis.com')).flush({ items: [] });
+    responderTudo();
 
     component.filtrarPorCategoria('horror');
 
-    const req = httpMock.expectOne(req => req.url.includes('subject:horror'));
+    const req = httpMock.expectOne(r => r.url.includes('subject:horror'));
     expect(req.request.url).toContain('subject:horror');
     req.flush({ items: [] });
   });

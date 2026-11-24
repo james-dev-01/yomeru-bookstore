@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { CarrinhoComponent } from './carrinho';
 import { CarrinhoService } from '../../../core/services/carrinho.service';
 import { Livro } from '../../../models/livro.model';
@@ -19,6 +20,8 @@ describe('CarrinhoComponent', () => {
   } as Livro;
 
   beforeEach(async () => {
+    localStorage.clear();
+
     await TestBed.configureTestingModule({
       imports: [CarrinhoComponent]
     }).compileComponents();
@@ -39,17 +42,16 @@ describe('CarrinhoComponent', () => {
 
   it('deve remover item ao chamar removerItem', () => {
     carrinhoService.adicionarAoCarrinho(livroTeste);
-    component.removerItem('1');
+    component.removerItem(0);
     expect(component.itens().length).toBe(0);
   });
 
-  it('deve limpar o carrinho ao finalizar', () => {
-    carrinhoService.adicionarAoCarrinho(livroTeste);
+  it('deve ir para a tela de pagamento ao finalizar', () => {
+    const router = TestBed.inject(Router);
+    const navegarSpy = vi.spyOn(router, 'navigate').mockResolvedValue(true);
 
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
     component.finalizar();
 
-    expect(alertSpy).toHaveBeenCalledWith('Compra finalizada!');
-    expect(component.itens().length).toBe(0);
+    expect(navegarSpy).toHaveBeenCalledWith(['/pagamento']);
   });
 });

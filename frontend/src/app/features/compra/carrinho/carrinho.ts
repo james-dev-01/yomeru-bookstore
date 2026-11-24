@@ -18,7 +18,7 @@ interface EnderecoViaCep {
   selector: 'app-carrinho',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule],
-  templateUrl: './carrinho.component.html',
+  templateUrl: './carrinho.html',
   styleUrls: ['./carrinho.css']
 })
 export class CarrinhoComponent {

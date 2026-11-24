@@ -1,12 +1,5 @@
 import { describe, it, expect } from 'vitest';
-
-// Função que calcula desconto no livro
-function aplicarDesconto(preco: number, temCupom: boolean): number {
-  if (temCupom) {
-    return preco - (preco * 0.10); // 10% de desconto
-  }
-  return preco;
-}
+import { aplicarDesconto } from './regra-negocio';
 
 describe('Testes Unitários - Lógica da Yomeru', () => {
   it('Deve aplicar 10% de desconto no livro se tiver cupom', () => {

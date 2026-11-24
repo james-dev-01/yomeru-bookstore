@@ -33,7 +33,7 @@ describe('CarrinhoService', () => {
 
   it('deve remover um livro do carrinho', () => {
     service.adicionarAoCarrinho(livroTeste);
-    service.removerDoCarrinho('1');
+    service.removerDoCarrinho(1);
     expect(service.itensCarrinho().length).toBe(0);
   });
 
