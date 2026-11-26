@@ -62,3 +62,4 @@ node_modules/
 !.env.example
 
 frontend/src/environments/environment.ts
+frontend/src/environments/environment.ts
